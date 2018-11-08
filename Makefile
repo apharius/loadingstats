@@ -1,4 +1,4 @@
-all: updatestats threadgraphs
+all: updatestats publishgraphs
 
 updatestats:
 	python3 loadingscraper.py
@@ -13,4 +13,5 @@ tradar_per_datum.png tradar_per_anvandare.png tradar_per_timme.png: loadingstats
 
 threadgraphs: tradar_per_datum.png tradar_per_anvandare.png tradar_per_timme.png
 
-
+publishgraphs: threadgraphs
+	mv *.png /var/www/html/loading-graphs/
