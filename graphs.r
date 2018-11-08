@@ -21,7 +21,6 @@ replies <- threads[,c(1,6)]
 attach(replies)
 replies <- replies[order(-NumberOfReplies),]
 topfifteen <- replies[2:16,]
-topfifteen$NumberOfReplies
 topfifteen <- droplevels(topfifteen)
 detach(replies)
 
