@@ -11,7 +11,11 @@ threads.csv posts.csv:
 topp_15_tradar_utan_bsl.png tradar_per_datum.png tradar_per_anvandare.png tradar_per_timme.png: threads.csv
 	Rscript graphs.r
 
+inlagg_per_anvandare.png inlagg_per_timme.png inlagg_per_datum.png: posts.csv
+
 threadgraphs: tradar_per_datum.png tradar_per_anvandare.png tradar_per_timme.png topp_15_tradar_utan_bsl.png
 
-publishgraphs: threadgraphs
+postgraphs: inlagg_per_anvandare.png inlagg_per_timme.png inlagg_per_datum.png
+
+publishgraphs: threadgraphs postgraphs
 	mv *.png /var/www/html/loading-graphs/
