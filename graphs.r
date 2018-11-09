@@ -1,4 +1,4 @@
-threads <- read.csv('loadingstats.csv',header=TRUE,sep=";")
+threads <- read.csv('threads.csv',header=TRUE,sep=";")
 
 attach(threads)
 
@@ -29,4 +29,26 @@ attach(topfifteen)
 png("topp_15_tradar_utan_bsl.png",width=1920,height=1080)
 par(mar=c(25.1,4.1,4.1,2.1),las=2)
 barplot(NumberOfReplies,names.arg=Title,main=sprintf("Topp 15 trådar efter inlägg (förutom Bullshit Lounge) (diagram skapat %s)",Sys.time()),col="#fd2860",ylim=c(0,300))
+dev.off()
+
+detach(topfifteen)
+
+posts <- read.csv('posts.csv',header=TRUE,sep=";")
+
+attach(posts)
+
+posts_hour_title <- sprintf("Inlägg per timme på dygnet (diagram skapat %s)",Sys.time())
+
+png("inlagg_per_timme.png",width=1920,height=1080)
+barplot(table(PostHour),main=posts_hour_title,col="#fd2860")
+dev.off()
+
+posts_date_title <- sprintf("Inlägg per datum (diagram skapat %s)",Sys.time())
+png("inlagg_per_datum.png",width=1920,height=1080)
+barplot(table(PostDate),main=posts_date_title,col="#fd2860")
+dev.off()
+
+post_users_title <- sprintf("Topp 15 användare efter inlägg (diagram skapat %s)",Sys.time())
+png("inlagg_per_anvandare.png",width=1920,height=1080)
+barplot(sort(table(Poster),decreasing=TRUE)[1:15],main=post_users_title,col="#fd2860")
 dev.off()

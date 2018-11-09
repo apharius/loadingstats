@@ -5,10 +5,10 @@ updatestats:
 
 FORCE: ;
 
-loadingstats.csv:
+threads.csv posts.csv:
 	python3 loadingscraper.py
 
-topp_15_tradar_utan_bsl.png tradar_per_datum.png tradar_per_anvandare.png tradar_per_timme.png: loadingstats.csv
+topp_15_tradar_utan_bsl.png tradar_per_datum.png tradar_per_anvandare.png tradar_per_timme.png: threads.csv
 	Rscript graphs.r
 
 threadgraphs: tradar_per_datum.png tradar_per_anvandare.png tradar_per_timme.png topp_15_tradar_utan_bsl.png

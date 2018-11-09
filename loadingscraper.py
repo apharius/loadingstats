@@ -158,7 +158,7 @@ def main():
     print("Finished! {0} threads and {1} posts processed.".format(len(threads),len(posts)))
 
 def csv_thread_dump(threads):
-    output = open('loadingstats.csv','w+',encoding="utf-8")
+    output = open('threads.csv','w+',encoding="utf-8")
     output.write('Title;Creator;CreationDate;CreationHour;CreationMinute;NumberOfReplies\n')
 
     for t in threads:
