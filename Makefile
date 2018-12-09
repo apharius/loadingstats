@@ -1,4 +1,4 @@
-all: updatestats publishgraphs
+all: updatestats publishgraphs publishstats
 
 updatestats:
 	python3 loadingscraper.py
@@ -19,3 +19,6 @@ postgraphs: inlagg_per_anvandare.png inlagg_per_timme.png inlagg_per_datum.png
 
 publishgraphs: threadgraphs postgraphs
 	mv *.png /var/www/html/loading-graphs/
+
+publishstats: threads.csv posts.csv
+	mv *.csv /var/www/html/loading-graphs/
