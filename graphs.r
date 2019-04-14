@@ -1,4 +1,5 @@
 threads <- read.csv('threads.csv',header=TRUE,sep=";",quote="")
+redaktionen <- c('Isabell Rydén','Aleksandar Buntic','Alexander Rehnman','Amanda Steén','Eric Lindholm','Jimmy Seppälä','Kiki','Albin Mobäck','Anders Eklöf','Niklas Karlsson','Oskar Skog','Petter Arbman','Simon Liljedahl','Tomas Engström','Jerry Olsson')
 
 attach(threads)
 
@@ -52,3 +53,14 @@ post_users_title <- sprintf("Topp 15 användare efter inlägg (diagram skapat %s
 png("inlagg_per_anvandare.png",width=1920,height=1080)
 barplot(sort(table(Poster),decreasing=TRUE)[1:15],main=post_users_title,col="#fd2860")
 dev.off()
+
+editor_posts <- posts[posts$Poster %in% redaktionen,]
+
+for(editor in redaktionen){
+	specific_editor <- editor_posts[editor_posts$Poster == editor,]
+	datetable <- table(specific_editor$PostDate)
+	png(sprintf("redaktionen/%s.png",editor),width=1920,height=1080)
+	barplot(datetable,main=sprintf("Aktivitetsdiagram för %s",editor),col="#fd2860")
+	dev.off()
+	
+}

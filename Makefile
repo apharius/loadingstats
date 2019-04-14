@@ -19,6 +19,6 @@ postgraphs: inlagg_per_anvandare.png inlagg_per_timme.png inlagg_per_datum.png
 
 publishgraphs: threadgraphs postgraphs
 	mv *.png /var/www/html/loading-graphs/
-
+	mv redaktionen/* /var/www/html/loading-graphs/redaktionen
 publishstats: threads.csv posts.csv
 	mv *.csv /var/www/html/loading-graphs/

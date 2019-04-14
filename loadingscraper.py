@@ -31,9 +31,7 @@ class LoadingScraper():
     def get_threads(self):
         print("Getting threads...")
         
-        for div in self.driver.find_elements_by_xpath('//div[@class="Row-links-container"]'):
-            data = self.process_thread_info(div)
-            self.threads.append(data)
+        return self.driver.find_elements_by_xpath('//div[@class="Row-links-container"]')
 
     def process_thread_info(self, div):
         title = ''
@@ -44,7 +42,7 @@ class LoadingScraper():
         creation = div.find_element_by_xpath('.//div[@class="Row-creation-text"]').text
         number_of_replies = div.find_element_by_xpath('.//div[@class="Row-number"]').text
         thread_url = div.find_element_by_xpath('./a[@class="Row-forum-container"]')
-        
+        print("Processing thread {0}".format(title))
         thread_url = thread_url.get_attribute("href")
         self.threadurls.append(thread_url)
 
@@ -74,24 +72,32 @@ class LoadingScraper():
 
     def crawl_games(self):
         print("Crawling game section...")
-
-        for i in range(1,9):
+        thread_data = ["tmp"]
+        i = 1
+        while len(thread_data) > 0:
             print("Crawling page {0}...".format(i))
-
             current_url = self.url_to_crawl + "/spel/{0}".format(i)
             self.get_page(current_url)
-            self.get_threads()
-    
+            thread_data = self.get_threads()
+            for div in thread_data:
+                data = self.process_thread_info(div)
+                self.threads.append(data)
+            i += 1
     def crawl_other(self):
         print("Crawling other section...")
-
-        for i in range(1,5):
+        thread_data = ["tmp"]
+        i = 1
+        
+        while len(thread_data) > 0:
             print("Crawling page {0}...".format(i))
 
             current_url = self.url_to_crawl + "/annat/{0}".format(i)
             self.get_page(current_url)
-            self.get_threads()
-
+            thread_data = self.get_threads()
+            for div in thread_data:
+                data = self.process_thread_info(div)
+                self.threads.append(data)
+            i += 1
     def crawl_posts(self):
         for url in self.threadurls:
             self.get_page(url)
